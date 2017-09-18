@@ -4,8 +4,9 @@
 function usage() {
   cat <<EOS
 Usage:
-  git standup [-a <author name>] [-w <weekstart-weekend>] [-d <days-ago>] [-m <max-dir-depth>] [-g] [-h] [-f]
+  git standup [-r <remotes>] [-a <author name>] [-w <weekstart-weekend>] [-d <days-ago>] [-m <max-dir-depth>] [-g] [-h] [-f]
 
+  -r      - Specify remotes
   -a      - Specify author to restrict search to
   -w      - Specify weekday range to limit search to
   -m      - Specify the depth of recursive directory search
@@ -53,9 +54,9 @@ function uncolored() {
   fi
 }
 
-while getopts "hgfd:a:w:m:D:L" opt; do
+while getopts "hgfd:a:w:m:D:r:L" opt; do
   case $opt in
-    h|d|a|w|m|g|D|f|L)
+    h|d|a|w|m|g|D|f|L|r)
       declare "option_$opt=${OPTARG:-0}"
       ;;
     \?)
@@ -99,6 +100,7 @@ AUTHOR=`git config user.name`
 SINCE="yesterday"
 MAXDEPTH=2
 INCLUDE_LINKS=
+REMOTES_OPT=
 
 if [[ $option_a ]] ; then
   # In case the parameter
@@ -136,10 +138,17 @@ else
   fi
 fi
 
+## If -r flag is there, set --remotes, otherwise set --all
+if [[ $option_r ]] ; then
+  REMOTES_OPT="--remotes $option_r"
+else
+  REMOTES_OPT="--all"
+fi
+
 GIT_DATE_FORMAT=${option_D:-relative}
 
 GIT_LOG_COMMAND="git --no-pager log \
-    --all
+    $REMOTES_OPT
     --no-merges
     --since=\"$SINCE\"
     --author=\"$AUTHOR\"
