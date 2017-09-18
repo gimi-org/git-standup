@@ -1,0 +1,22 @@
+open_cmd=
+repo=
+
+if which xdg-open > /dev/null; then
+  open_cmd=xdg-open
+elif which gnome-open > /dev/null; then
+  open_cmd=gnome-open
+elif which open > /dev/null; then
+  open_cmd=open
+else:
+  echo "No compatible 'open' commands found!"
+  exit
+fi
+
+for row in `git-standup/git-standup -m 2 -r origin|cut -d" " -f 1`; do
+    if [[ $row == /* ]] ; then
+        repo=${row##*/}
+    else
+        $open_cmd "https://github.com/gimi-org/$repo/commit/$row?diff=split"
+        sleep 1
+    fi
+done
