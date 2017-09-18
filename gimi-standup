@@ -12,7 +12,7 @@ else:
   exit
 fi
 
-for row in `git-standup/git-standup -m 2 -r origin|cut -d" " -f 1`; do
+for row in `git-standup -m 2 -r origin|cut -d" " -f 1`; do
     if [[ $row == /* ]] ; then
         repo=${row##*/}
     else
