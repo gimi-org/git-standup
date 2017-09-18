@@ -140,7 +140,7 @@ fi
 
 ## If -r flag is there, set --remotes, otherwise set --all
 if [[ $option_r ]] ; then
-  REMOTES_OPT="--remotes $option_r"
+  REMOTES_OPT="--remotes=$option_r"
 else
   REMOTES_OPT="--all"
 fi
