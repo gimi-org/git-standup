@@ -1,5 +1,5 @@
 open_cmd=
-repo=
+repo=$(basename `pwd`)
 
 if which xdg-open > /dev/null; then
   open_cmd=xdg-open
