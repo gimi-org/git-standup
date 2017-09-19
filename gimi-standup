@@ -15,7 +15,10 @@ fi
 for row in `git-standup -m 2 -r origin|cut -d" " -f 1`; do
     if [[ $row == /* ]] ; then
         repo=${row##*/}
-    else
+    elif [[ $row == Seems ]]; then
+        echo "Nothing to show!"
+        break
+    else:
         $open_cmd "https://github.com/gimi-org/$repo/commit/$row?diff=split"
         sleep 1
     fi
