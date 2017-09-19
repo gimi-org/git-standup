@@ -6,7 +6,7 @@ datadir=$(datarootdir)
 mandir=$(datarootdir)/man
 
 # files that need mode 755
-EXEC_FILES=git-standup
+EXEC_FILES=gimi-standup
 
 .PHONY: all install uninstall
 
@@ -16,9 +16,11 @@ all:
 
 install:
 	mkdir -p $(bindir)
-	install -m 0755 $(EXEC_FILES) $(bindir)
+	install -m 0755 git-standup $(bindir)
+	install -m 0755 gimi-standup $(bindir)
 
 uninstall:
 	test -d $(bindir) && \
 	cd $(bindir) && \
-	rm -f $(EXEC_FILES)
+	rm -f git-standup &&\
+	rm -f gimi-standup
