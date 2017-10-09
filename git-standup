@@ -146,7 +146,7 @@ else
 fi
 
 GIT_DATE_FORMAT=${option_D:-relative}
-K
+
 GIT_LOG_COMMAND="git --no-pager log \
     $REMOTES_OPT
     --no-merges
