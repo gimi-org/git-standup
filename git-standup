@@ -131,7 +131,7 @@ else
       WEEKSTART=${WEEKSTART:=$(date -dmonday +%a)}
       ;;
     Darwin)
-      WEEKSTART=${WEEKSTART:=$(date -v-monday +&a)}
+      WEEKSTART=${WEEKSTART:=$(date -v-monday +%a)}
       ;;
     *)
       echo "Unsupported OS!"
