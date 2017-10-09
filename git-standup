@@ -124,8 +124,20 @@ if [[ $option_d ]] && [[ $option_d -ne 0 ]] ; then
   SINCE="$option_d days ago"
 else
   ## -d flag is not there, go on with the normal processing
+  ## WEEKSTART needs to be declared differently to accommodate locales
   WEEKSTART="$( cut -d '-' -f 1 <<< "$option_w" )";
-  WEEKSTART=${WEEKSTART:="Mon"}
+  case "$(uname -s)" in
+    Linux|CYGWIN*|WING32*|MSYS*)
+      WEEKSTART=${WEEKSTART:=$(date -dmonday +%a)}
+      ;;
+    Darwin)
+      WEEKSTART=${WEEKSTART:=$(date -v-monday +&a)}
+      ;;
+    *)
+      echo "Unsupported OS!"
+      exit 1
+      ;;
+  esac
 
   WEEKEND="$( cut -d '-' -f 2 <<< "$option_w" )";
   WEEKEND=${WEEKEND:="Fri"}
