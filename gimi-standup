@@ -21,8 +21,8 @@ for row in `git-standup -m 2 -r origin|cut -d" " -f 1`; do
     then
         echo "Nothing to show!"
     else
-        repo=$(git -C ${folder:-$(pwd)} config --get remote.origin.url)
-        ${open_cmd} "${repo:0:-4}/commit/$row?diff=split"
+        repo=$(git -C ${folder:-$(pwd)} config --get remote.origin.url | sed 's/\.git$//')
+        ${open_cmd} "${repo}/commit/$row?diff=split"
         sleep 1
     fi
 done
