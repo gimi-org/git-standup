@@ -16,7 +16,7 @@ fi
 
 for row in `git-standup -m 2 -r origin|cut -d" " -f 1`; do
     if [[ ${row} == /* ]] ; then
-        folder=${row##*/}
+        folder=${row}
     elif [[ ${row} == "Seems" ]]
     then
         echo "Nothing to show!"
